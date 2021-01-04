@@ -9,7 +9,7 @@ object WeatherRepository {
         .serverUrl("https://graphql-weather-api.herokuapp.com")
         .build()
 
-    suspend fun getCityByName(name:String, country:String? = null): WeatherQuery.GetCityByName? {
+    suspend fun getCityByName(name: String, country: String? = null): WeatherQuery.GetCityByName? {
         val result = apolloClient.query(WeatherQuery(name = name)).await().data?.getCityByName
         return result
     }

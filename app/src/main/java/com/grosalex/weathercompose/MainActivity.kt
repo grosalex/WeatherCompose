@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
                 val cityByName = weatherCityViewModel.cityByName.observeAsState()
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
-                    Greeting("Android ${cityByName.value?.weather?.summary?.description ?: "none"}" )
+                    Greeting("Android ${cityByName.value?.weather?.summary?.description ?: "none"}")
                 }
             }
         }
