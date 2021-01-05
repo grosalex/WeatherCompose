@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="search_by_city_name">Rechercher par nom de ville</string>
+    <string name="search_for_a_city_name">Rechercher un nom de ville</string>
+    <string name="oops_something_went_wrong">\"Oops something went wrong \n%s</string>
 </resources>

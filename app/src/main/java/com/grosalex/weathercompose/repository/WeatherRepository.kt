@@ -10,7 +10,6 @@ object WeatherRepository {
         .build()
 
     suspend fun getCityByName(name: String, country: String? = null): WeatherQuery.GetCityByName? {
-        val result = apolloClient.query(WeatherQuery(name = name)).await().data?.getCityByName
-        return result
+        return apolloClient.query(WeatherQuery(name = name)).await().data?.getCityByName
     }
 }
