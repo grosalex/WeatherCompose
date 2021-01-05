@@ -118,11 +118,6 @@ class WeatherCityViewModel(application: Application) : AndroidViewModel(applicat
             cityWeather.weather?.wind?.let {
                 WindCard(it)
             }
-            /*cityWeather.weather?.clouds?.let {
-                Text(text = it.all.toString())
-                Text(text = it.humidity.toString())
-                Text(text = it.visibility.toString())
-            }*/
         }
     }
 

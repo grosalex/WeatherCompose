@@ -3,10 +3,6 @@ query Weather($name:String!, $config:ConfigInput!){
         id
         name
         country
-        coord {
-            lon
-            lat
-        }
         weather {
             summary {
                 title
@@ -22,11 +18,6 @@ query Weather($name:String!, $config:ConfigInput!){
             wind {
                 speed
                 deg
-            }
-            clouds {
-                all
-                visibility
-                humidity
             }
             timestamp
         }
