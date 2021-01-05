@@ -1,5 +1,5 @@
-query Weather($name:String!){
-    getCityByName(name: $name) {
+query Weather($name:String!, $config:ConfigInput!){
+    getCityByName(name: $name, config: $config) {
         id
         name
         country

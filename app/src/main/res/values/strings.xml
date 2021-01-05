@@ -2,5 +2,13 @@
     <string name="app_name">WeatherCompose</string>
     <string name="search_by_city_name">Search by city name</string>
     <string name="search_for_a_city_name">Search for a city name</string>
-    <string name="oops_something_went_wrong">\"Oops something went wrong \n%s</string>
+    <string name="oops_something_went_wrong">Oops something went wrong \n%s</string>
+    <string name="retry">Retry</string>
+    <string name="its_currently">"It's currently: "</string>
+    <string name="actual_temp">Actual temperature: "</string>
+    <string name="feeling_temp">Temperature felt: </string>
+    <string name="minimal">Minimal</string>
+    <string name="maximal">Maximal</string>
+    <string name="wind_speed">Wind speed: </string>
+    <string name="wind_direction">Wind direction: </string>
 </resources>

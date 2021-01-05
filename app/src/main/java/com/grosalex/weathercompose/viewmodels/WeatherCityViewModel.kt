@@ -2,15 +2,14 @@ package com.grosalex.weathercompose.viewmodels
 
 import android.app.Application
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -19,6 +18,7 @@ import com.grosalex.weathercompose.NullTextOrEmpty
 import com.grosalex.weathercompose.R
 import com.grosalex.weathercompose.WeatherQuery
 import com.grosalex.weathercompose.repository.WeatherRepository
+import dev.chrisbanes.accompanist.picasso.PicassoImage
 import kotlinx.coroutines.launch
 
 class WeatherCityViewModel(application: Application) : AndroidViewModel(application) {
@@ -70,11 +70,18 @@ class WeatherCityViewModel(application: Application) : AndroidViewModel(applicat
 
     @Composable
     private fun Error(message: String?) {
-        Box(
+        Column(
             modifier = Modifier.fillMaxHeight().fillMaxWidth(),
-            contentAlignment = Alignment.Center
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
             ErrorText(text = message)
+            Spacer(modifier = Modifier.height(8.dp))
+            Button(onClick = {
+                cityName.value?.let { searchCityWeatherName(it) }
+            }) {
+                Text(text = stringResource(id = R.string.retry))
+            }
         }
     }
 
@@ -98,6 +105,130 @@ class WeatherCityViewModel(application: Application) : AndroidViewModel(applicat
                 NullTextOrEmpty(
                     style = MaterialTheme.typography.h5,
                     text = "${cityWeather.name}, ${cityWeather.country}"
+                )
+            }
+            cityWeather.weather?.summary?.let {
+                SummaryCard(it)
+            }
+
+            cityWeather.weather?.temperature?.let {
+                TemperatureCard(it)
+            }
+
+            cityWeather.weather?.wind?.let {
+                WindCard(it)
+            }
+            /*cityWeather.weather?.clouds?.let {
+                Text(text = it.all.toString())
+                Text(text = it.humidity.toString())
+                Text(text = it.visibility.toString())
+            }*/
+        }
+    }
+
+    @Composable
+    private fun WindCard(wind: WeatherQuery.Wind) {
+        Card(Modifier.fillMaxWidth().padding(top = 16.dp, start = 16.dp, end = 16.dp)) {
+            Column(
+                Modifier.padding(16.dp)
+            ) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(
+                        style = MaterialTheme.typography.h6,
+                        text = stringResource(id = R.string.wind_speed)
+                    )
+                    Text(
+                        style = MaterialTheme.typography.body1,
+                        text = "${wind.speed} km/h"
+                    )
+                }
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(
+                        style = MaterialTheme.typography.h6,
+                        text = stringResource(id = R.string.wind_direction)
+                    )
+                    Text(
+                        style = MaterialTheme.typography.body1,
+                        text = "${wind.deg}°"
+                    )
+                }
+
+            }
+
+        }
+    }
+
+    @Composable
+    private fun TemperatureCard(temperature: WeatherQuery.Temperature) {
+        Card(Modifier.fillMaxWidth().padding(top = 16.dp, start = 16.dp, end = 16.dp)) {
+            Column(
+                Modifier.padding(16.dp)
+            ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        style = MaterialTheme.typography.h6,
+                        text = stringResource(id = R.string.actual_temp)
+                    )
+                    Text(
+                        style = MaterialTheme.typography.body1,
+                        text = "${temperature.actual}°C"
+                    )
+                }
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        style = MaterialTheme.typography.h6,
+                        text = stringResource(id = R.string.feeling_temp)
+                    )
+                    Text(
+                        style = MaterialTheme.typography.body1,
+                        text = "${temperature.feelsLike}°C"
+                    )
+                }
+                Row(
+                    Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(
+                        style = MaterialTheme.typography.h6,
+                        text = stringResource(id = R.string.minimal)
+                    )
+                    Text(
+                        style = MaterialTheme.typography.body1,
+                        text = "${temperature.min}°C"
+                    )
+                    Text(
+                        style = MaterialTheme.typography.h6,
+                        text = stringResource(id = R.string.maximal)
+                    )
+                    Text(
+                        style = MaterialTheme.typography.body1,
+                        text = "${temperature.max}°C"
+                    )
+                }
+            }
+        }
+    }
+
+    @Composable
+    private fun SummaryCard(summary: WeatherQuery.Summary) {
+        Card(Modifier.fillMaxWidth().padding(top = 16.dp, start = 16.dp, end = 16.dp)) {
+            Row(
+                Modifier.padding(16.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                PicassoImage(data = "https://openweathermap.org/img/wn/${summary.icon}@2x.png")
+                Text(
+                    style = MaterialTheme.typography.h6,
+                    text = stringResource(id = R.string.its_currently)
+                )
+                Text(
+                    style = MaterialTheme.typography.body1,
+                    text = summary.description.orEmpty()
                 )
             }
         }

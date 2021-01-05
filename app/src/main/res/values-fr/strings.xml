@@ -2,5 +2,13 @@
 <resources>
     <string name="search_by_city_name">Rechercher par nom de ville</string>
     <string name="search_for_a_city_name">Rechercher un nom de ville</string>
-    <string name="oops_something_went_wrong">\"Oops something went wrong \n%s</string>
+    <string name="oops_something_went_wrong">Oops something went wrong \n%s</string>
+    <string name="retry">Ré-essayer</string>
+    <string name="its_currently">"Il fait actuellement : "</string>
+    <string name="actual_temp">"Température actulle : "</string>
+    <string name="feeling_temp">"Température ressentie : "</string>
+    <string name="minimal">Minimal : </string>
+    <string name="maximal">Maximal : </string>
+    <string name="wind_speed">Vitesse du vent : </string>
+    <string name="wind_direction">Direction du vent : </string>
 </resources>
